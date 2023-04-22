@@ -61,24 +61,36 @@ class Digit:
             return False
         self.formula = gr(self.pos, "")
 
-
     def test(self, subject):
 
         if self.pos == "":
-
             return False
 
+        return calc(self.formula, subject)
 
-        return calc(self.formula,subject)
+
+def out(t, db, l):
+    biggestfac = ""
+
+    test = format(t, "b").zfill(l)
+
+    for i in db:
+
+        if i.test(test):
+
+            biggestfac = biggestfac + "1"
+
+        else:
+            biggestfac = biggestfac + "0"
+
+    return biggestfac
 
 
 if __name__ == "__main__":
 
-    l = 8
+    l = 5
 
     db = []
-
-
 
     for i in range(l):
 
@@ -95,32 +107,16 @@ if __name__ == "__main__":
                 db[dig].commit(str(int(format(i, "b").zfill(l), 2)))
 
     for i in db:
-        print()
-        print(i.pos)
+
         i.formulate()
 
 
     for t in range(2**(l)):
-        biggestfac = ""
 
-        test = format(t, "b").zfill(l)
-
-        for i in db:
-
-            if i.test(test):
-
-                biggestfac = biggestfac + "1"
-
-            else:
-                biggestfac = biggestfac + "0"
+        biggestfac = out(t, db, l)
 
         if format(findbiggestfact(t), "b").zfill(l) != biggestfac:
 
             print(format(findbiggestfact(t), "b").zfill(l), biggestfac)
 
-
-
-
-
-
-
+    print(out(15, db, l))
